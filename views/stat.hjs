@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="socket.io/socket.io.js"></script>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/canvasjs.min.js"></script>
+    <script src="js/stat.js"></script>
+    <script src="js/semantic.min.js"></script>
+
+    <link href="css/stat.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+</head>
+<body>
+  <div>
+    <div class="nodeList">
+
+    </div>
+    <div>
+      <div>
+          <label id="containerId"></label>
+      </div>
+      <br />
+      <div>
+        <div>
+          <select id="timerDropdown">
+            <option value="0" text="0">Current</option>
+            <option value="1" text="1">1 Minute</option>
+            <option value="2" text="2">5 Minute</option>
+            <option value="3" text="3">30 Minuttes</option>
+            <option value="4" text="4">1 Hour</option>
+            <option value="5" text="5">12 Hours</option>
+            <option value="6" text="6">1 Day</option>
+            <option value="7" text="7">1 Week</option>
+            <option value="8" text="8">User Defined</option>
+          </select>
+          <div id="user-defined-time" hidden>
+            <label>Duration</label>
+            <input type="number" min="1" step="1" id="user-given-interval" />
+            <select id="unitDropdown">
+              <option value="-1" text="-1">Time Unit</option>
+              <option value="0" text="0">Seconds</option>
+              <option value="1" text="1">Minutes</option>
+              <option value="2" text="2">Hours</option>
+            </select>
+            <label id="error"></label>
+          </div>
+          </div>
+          <br /><br />
+          <div class="graphContainers">
+            <div id="cpu">
+              <div id="cpuChartContainer" class="graph"></div>
+              <div id="perCpuChartContainer" class="graph"></div>
+            </div>
+            <div id="memory">
+              <div id="memoryChartContainer" class="graph"></div>
+            </div>
+            <div id="network">
+              <div id="networkChartContainer" class="graph"></div>
+            </div>
+            <div id="io">
+              <div id="ioChartContainer" class="graph"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="space">
+
+    </div>
+  </div>
+</body>
+</html>

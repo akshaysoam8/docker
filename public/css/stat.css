@@ -1,0 +1,53 @@
+body {
+    display: block;
+    margin: 0;
+}
+
+.nodeList {
+    float: left;
+    height: 100vh;
+    background: #434343;
+    color: white;
+    padding-left: 7px;
+    padding-top: 7px;
+    margin-right: 15px;
+    padding-right : 4px;
+}
+
+.current_docker_node {
+    border-style: groove;
+    border-width: 1px;
+}
+
+.graph{
+    height : 250px;
+    border-style: groove;
+}
+
+#cpuChartContainer {
+    margin-bottom : 15px;
+    padding : 5px;
+}
+
+#memoryChartContainer {
+    margin-top : 15px;
+    padding : 5px;
+}
+
+.ip_address_port_number {
+    display: none;
+    margin-top : 4px;
+}
+
+.graphContainers {
+    float: left;
+}
+
+.space {
+  float: right;
+  width: 20%;
+}
+
+#error {
+  color: red;
+}

@@ -1,0 +1,67 @@
+body {
+  height: 100%;
+}
+
+label {
+  font-family: cursive;
+  font-size: xx-large;
+  font-weight: bolder;
+}
+
+table {
+  margin-top: 15px !important;
+  width: 48% !important;
+}
+
+.category{
+  font-weight: bold;
+}
+
+.extra {
+  float: right;
+  margin: 10px;
+}
+
+.extra label {
+  font-size: 15pt;
+  margin: 5px;
+  font-weight: normal;;
+}
+
+select {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.nodeList {
+  float: left;
+  height: 100%;
+  background: #434343;
+  color: white;
+  padding-left: 7px;
+  padding-top: 7px;
+  margin-right: 15px;
+  padding-right : 4px;
+  width: 15%;
+}
+
+#add {
+  float: right;
+}
+
+.ip_address_port_number {
+  margin-top : 4px;
+}
+
+.ip_address_port_number label {
+  font-size: 10pt;
+}
+
+.current_docker_node {
+  border-style: groove;
+  border-width: 1px;
+}
+
+.pc_name label {
+  font-size: 10pt;
+}

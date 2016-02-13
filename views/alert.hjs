@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/alert.js"></script>
+    <script src="js/semantic.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="css/alert.css">
+</head>
+<body>
+  <div class="nodeList">
+
+  </div>
+  <br /><label>Monitoring and Alerts of Docker Containers</label>
+  <div class="extra">
+    <button class="ui primary button" id="addParam">Add Parameter</button><br/><br />
+    <label>Monitoring Period : </label><div class="ui input"><input type="text" placeholder="Time Period"></div>
+    <button class="ui button" id="save">Save</button>
+
+    <div id=new-parameter hidden>
+      <br/><label style="font-size: x-large;">New Parameter</label><br /><br />
+      <label>Threshold : </label><div class="ui input"><input type="text" id="threshold_period" placeholder="Threshold"></div>
+      <div class="inline fields">
+        <br /><label>Parameter Type</label>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="param-type" value="network">
+            <label>Network</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="param-type" value="cpu">
+            <label>CPU</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="param-type" value="memory">
+            <label>Memory</label>
+          </div>
+        </div>
+        <div id="network-div" hidden>
+          <select class="ui dropdown" id="network-dropdown">
+            <option>Network Parameter</option>
+            <option value="rx_dropped" value="rx_dropped">rx_dropped</option>
+            <option value="rx_bytes">rx_bytes</option>
+            <option value="rx_errors">rx_errors</option>
+            <option value="tx_packets">tx_packets</option>
+            <option value="tx_dropped">tx_dropped</option>
+            <option value="rx_packets">rx_packets</option>
+            <option value="tx_errors">tx_errors</option>
+            <option value="tx_bytes">tx_bytes</option>
+          </select>
+        </div>
+        <div id="cpu-div" hidden>
+          <br />
+          <select class="ui dropdown" id="cpu-dropdown">
+            <option>CPU Parameter</option>
+            <option value="usage_in_usermode">usage_in_usermode</option>
+            <option value="total_usage">total_usage</option>
+            <option value="usage_in_kernelmode">usage_in_kernelmode</option>
+            <option value="system_cpu_usage">system_cpu_usage</option>
+          </select>
+          <br />
+        </div>
+        <div id="memory-div" hidden>
+          <br />
+          <select class="ui dropdown" id="memory-dropdown">
+            <option>Memory Parameter</option>
+            <option value="total_pgmajfault">total_pgmajfault</option>
+            <option value="cache">cache</option>
+            <option value="mapped_file">mapped_file</option>
+            <option value="total_inactive_file">total_inactive_file</option>
+            <option value="pgpgout">pgpgout</option>
+            <option value="rss">rss</option>
+            <option value="total_mapped_file">total_mapped_file</option>
+            <option value="writeback">writeback</option>
+            <option value="unevictable">unevictable</option>
+            <option value="pgpgin">pgpgin</option>
+            <option value="total_unevictable">total_unevictable</option>
+            <option value="pgmajfault">pgmajfault</option>
+            <option value="total_rss">total_rss</option>
+            <option value="total_rss_huge">total_rss_huge</option>
+            <option value="total_writeback">total_writeback</option>
+            <option value="total_inactive_anon">total_inactive_anon</option>
+            <option value="rss_huge">rss_huge</option>
+            <option value="hierarchical_memory_limit">hierarchical_memory_limit</option>
+            <option value="total_pgfault">total_pgfault</option>
+            <option value="total_active_file">total_active_file</option>
+            <option value="active_anon">active_anon</option>
+            <option value="total_active_anon">total_active_anon</option>
+            <option value="total_pgpgout">total_pgpgout</option>
+            <option value="total_cache">total_cache</option>
+            <option value="inactive_anon">inactive_anon</option>
+            <option value="active_file">active_file</option>
+            <option value="pgfault">pgfault</option>
+            <option value="inactive_file">inactive_file</option>
+            <option value="total_pgpgin">total_pgpgin</option>
+            <option value="max_usage">max_usage</option>
+            <option value="usage">usage</option>
+            <option value="failcnt">failcnt</option>
+            <option value="limit">limit</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table id="alertData" border="1" class="ui celled table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Parameter</th>
+        <th style="width: 15%;">Threshold</th>
+        <th>Alerts</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="cpu">
+        <td class="category">CPU</td>
+        <td>CPU Usage</td>
+        <td>
+          <select class="ui dropdown" id="cpu-threshold-dropdown">
+            <option value="">CPU Threshold</option>
+            <option value="0.1">0.1%</option>
+            <option value="0.5">0.5%</option>
+            <option value="1">1%</option>
+            <option value="5">5%</option>
+            <option value="10">10%</option>
+            <option value="20">20%</option>
+            <option value="30">30%</option>
+            <option value="40">40%</option>
+          </select>
+        </td>
+        <td class="cpu_alert">0</td>
+      </tr>
+      <tr class="percpu">
+        <td class="category">Per CPU</td>
+        <td>Per CPU Usage</td>
+        <td>
+          <select class="ui dropdown" id="percpu-threshold-dropdown">
+            <option value="">Per CPU Clock Cycles</option>
+            <option value="1000000">1 million </option>
+            <option value="2000000">2 million</option>
+            <option value="5000000">5 million</option>
+            <option value="10000000">10 million</option>
+            <option value="20000000">20 million</option>
+            <option value="50000000">50 million</option>
+            <option value="100000000">100 million</option>
+          </select>
+        </td>
+        <td class="percpu_alert">0</td>
+      </tr>
+      <tr class="io read_io_usage">
+        <td class="category">IO</td>
+        <td>Read IO Usage</td>
+        <td>
+          <select class="ui dropdown" id="read-io-threshold-dropdown">
+            <option value="">Read IO Threshold</option>
+            <option value="100000">100 KB</option>
+            <option value="200000">200 KB</option>
+            <option value="500000">500 KB</option>
+            <option value="1000000">1 MB</option>
+            <option value="2000000">2 MB</option>
+            <option value="5000000">5 MB</option>
+            <option value="10000000">10 MB</option>
+            <option value="20000000">20 MB</option>
+          </select>
+        </td>
+        <td class="read_io_alert">0</td>
+      </tr>
+      <tr class="io write_io_usage">
+        <td></td>
+        <td>Write IO Usage</td>
+        <td>
+          <select class="ui dropdown" id="write-io-threshold-dropdown">
+            <option value="">Write IO Threshold</option>
+            <option value="100000">100 KB</option>
+            <option value="200000">200 KB</option>
+            <option value="500000">500 KB</option>
+            <option value="1000000">1 MB</option>
+            <option value="2000000">2 MB</option>
+            <option value="5000000">5 MB</option>
+            <option value="10000000">10 MB</option>
+            <option value="20000000">20 MB</option>
+          </select>
+        </td>
+        <td class="write_io_alert">0</td>
+      </tr>
+      <tr class="io sync_io_usage">
+        <td></td>
+        <td>Synchronous IO Usage</td>
+        <td>
+          <select class="ui dropdown" id="sync-io-threshold-dropdown">
+            <option value="">Synchronous IO Threshold</option>
+            <option value="100000">100 KB</option>
+            <option value="200000">200 KB</option>
+            <option value="500000">500 KB</option>
+            <option value="1000000">1 MB</option>
+            <option value="2000000">2 MB</option>
+            <option value="5000000">5 MB</option>
+            <option value="10000000">10 MB</option>
+            <option value="20000000">20 MB</option>
+          </select>
+        </td>
+        <td class="sync_io_alert">0</td>
+      </tr>
+      <tr class="io async_io_usage">
+        <td></td>
+        <td>Asynchronous IO Usage</td>
+        <td>
+          <select class="ui dropdown" id="async-io-threshold-dropdown">
+            <option value="">Asynchronous IO Threshold</option>
+            <option value="100000">100 KB</option>
+            <option value="200000">200 KB</option>
+            <option value="500000">500 KB</option>
+            <option value="1000000">1 MB</option>
+            <option value="2000000">2 MB</option>
+            <option value="5000000">5 MB</option>
+            <option value="10000000">10 MB</option>
+            <option value="20000000">20 MB</option>
+          </select>
+        </td>
+        <td class="async_io_alert">0</td>
+      </tr>
+      <tr class="io total_io_usage">
+        <td></td>
+        <td>Total IO Usage</td>
+        <td>
+          <select class="ui dropdown" id="total-io-threshold-dropdown">
+            <option value="">Total IO Threshold</option>
+            <option value="100000">100 KB</option>
+            <option value="200000">200 KB</option>
+            <option value="500000">500 KB</option>
+            <option value="1000000">1 MB</option>
+            <option value="2000000">2 MB</option>
+            <option value="5000000">5 MB</option>
+            <option value="10000000">10 MB</option>
+            <option value="20000000">20 MB</option>
+          </select>
+        </td>
+        <td class="total_io_alert">0</td>
+      </tr>
+      <tr class="network sent_usage">
+        <td class="category">Network</td>
+        <td>Sent Network Usage</td>
+        <td>
+          <select class="ui dropdown" id="sent-threshold-dropdown">
+            <option value="">Sent Threshold</option>
+            <option value="100">100 Bytes</option>
+            <option value="500">500 Bytes</option>
+            <option value="1000">1 KB</option>
+            <option value="5000">5 KB</option>
+            <option value="10000">10 KB</option>
+            <option value="50000">50 KB</option>
+            <option value="100000">100 KB</option>
+          </select>
+        </td>
+        <td class="sent_usage_alert">0</td>
+      </tr>
+      <tr class="network received_usage">
+        <td></td>
+        <td>Received Network Usage</td>
+        <td>
+          <select class="ui dropdown" id="received-threshold-dropdown">
+            <option value="">Receiced Threshold</option>
+            <option value="100">100 Bytes</option>
+            <option value="500">500 Bytes</option>
+            <option value="1000">1 KB</option>
+            <option value="5000">5 KB</option>
+            <option value="10000">10 KB</option>
+            <option value="50000">50 KB</option>
+            <option value="100000">100 KB</option>
+          </select>
+        </td>
+        <td class="received_usage_alert">0</td>
+      </tr>
+      <tr class="memory">
+        <td class="category">Memory</td>
+        <td>Memory Usage</td>
+        <td>
+          <select class="ui dropdown" id="memory-threshold-dropdown">
+            <option value="">Memory Threshold</option>
+            <option value="100000">100 KB</option>
+            <option value="200000">200 KB</option>
+            <option value="500000">500 KB</option>
+            <option value="1000000">1 MB</option>
+            <option value="2000000">2 MB</option>
+            <option value="5000000">5 MB</option>
+            <option value="10000000">10 MB</option>
+            <option value="20000000">20 MB</option>
+          </select>
+        </td>
+        <td class="memory_usage_alert">0</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

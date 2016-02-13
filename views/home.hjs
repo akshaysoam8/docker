@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/semantic.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+</head>
+<body>
+    <table id="dockerData" border="1" class="ui celled table">
+      <thead>
+        <tr>
+          <th>Command</th>
+          <th>Names</th>
+          <th>Id</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+    </table>
+</body>
+</html>
