@@ -1,0 +1,21 @@
+.container {
+  font-weight: bold;
+}
+
+.key-name {
+  font-weight: bold;
+}
+
+.key-value {
+
+}
+
+body {
+  padding: 10px;
+}
+
+.loader {
+  position: fixed;
+  top: 45%;
+  left: 40%;
+}

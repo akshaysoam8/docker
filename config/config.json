@@ -3,5 +3,15 @@
   "vivek-pc-router" : "192.168.0.100:5555",
   "vivek-pc-college" : "192.168.199.58:5555",
   "anish-pc-router" : "192.168.0.101:4243",
-  "anish-pc-college" : "192.168.188.198:4243"
+  "anish-pc-college" : "192.168.188.198:4243",
+  "cpu_usage_threshold" : 0.002,
+  "percpu_usage_threshold" : 34000000,
+  "memory_usage_threshold" : 4,
+  "read_io_usage_threshold" : 5000000,
+  "write_io_usage_threshold" : 5000000,
+  "async_io_usage_threshold" : 5000000,
+  "sync_io_usage_threshold" : 5000000,
+  "total_io_usage_threshold" : 5000000,
+  "sent_usage_threshold" : 10,
+  "received_usage_threshold" : 10
 }

@@ -64,6 +64,97 @@ app.get('/dockerData', function (req, res) {
   });
 });
 
+app.get('/alertFromAllContainers', function (req, res) {
+  CPU_USAGE = mongoose.model('Cpu_usage', Cpu_usage_schema, '5000_Cpu');
+  MEMORY_USAGE = mongoose.model('Memory_usage', Memory_usage_schema, '5000_Memory');
+  NETWORK_USAGE = mongoose.model('Network_usage', Network_usage_schema, '5000_Network');
+  PERCPU_USAGE = mongoose.model('Percpu_usage', PerCpu_usage_schema, '5000_Percpu');
+  IO_USAGE = mongoose.model('IO_usage', IO_usage_schema, '5000_IO');
+
+  var parameters = [CPU_USAGE, MEMORY_USAGE, NETWORK_USAGE, PERCPU_USAGE, IO_USAGE];
+
+  var data = {};
+
+  parameters.forEach(function (collection, index) {
+    var stream = collection.find().stream();
+
+    stream.on('data', function (doc) {
+      if(data[doc.container_Id])
+      {
+        if(doc.cpu_usage && ( doc.cpu_usage > nconf.get('cpu_usage_threshold')))
+          data[doc.container_Id].cpu_usage += 1;
+
+        if(doc.Core0 && ( doc.Core0 > nconf.get('percpu_usage_threshold')))
+          data[doc.container_Id].Core0 += 1;
+
+        if(doc.Core1 && ( doc.Core1 > nconf.get('percpu_usage_threshold')))
+          data[doc.container_Id].Core1 += 1;
+
+        if(doc.Core2 && ( doc.Core2 > nconf.get('percpu_usage_threshold')))
+          data[doc.container_Id].Core2 += 1;
+
+        if(doc.Core3 && ( doc.Core3 > nconf.get('percpu_usage_threshold')))
+          data[doc.container_Id].Core3 += 1;
+
+        if(doc.memory_usage && ( doc.memory_usage > nconf.get('memory_usage_threshold')))
+          data[doc.container_Id].memory_usage += 1;
+
+        if(doc.read && ( doc.read > nconf.get('read_io_usage_threshold')))
+          data[doc.container_Id].read += 1;
+
+        if(doc.write && ( doc.write > nconf.get('write_io_usage_threshold')))
+          data[doc.container_Id].write += 1;
+
+        if(doc.async && ( doc.async > nconf.get('async_io_usage_threshold')))
+          data[doc.container_Id].async += 1;
+
+        if(doc.sync && ( doc.sync > nconf.get('sync_io_usage_threshold')))
+          data[doc.container_Id].sync += 1;
+
+        if(doc.total && ( doc.total > nconf.get('total_io_usage_threshold')))
+          data[doc.container_Id].total += 1;
+
+        if(doc.sent_usage && ( doc.sent_usage > nconf.get('sent_usage_threshold')))
+          data[doc.container_Id].sent_usage += 1;
+
+        if(doc.received_usage && ( doc.received_usage > nconf.get('received_usage_threshold')))
+          data[doc.container_Id].received_usage += 1;
+      }
+
+      else {
+
+        var alert = {};
+
+        alert.cpu_usage = 0;
+        alert.memory_usage = 0;
+        alert.received_usage = 0;
+        alert.sent_usage = 0;
+        alert.read = 0;
+        alert.write = 0;
+        alert.async = 0;
+        alert.sync = 0;
+        alert.total = 0;
+        alert.Core0 = 0;
+        alert.Core1 = 0;
+        alert.Core2 = 0;
+        alert.Core3 = 0;
+
+        data[doc.container_Id] = alert;
+      }
+    });
+
+    stream.on('error', function (err) {
+      if(err)
+        console.log(err);
+    });
+
+    stream.on('close', function () {
+      if(index == parameters.length - 1)
+        res.send(data);
+    });
+  });
+});
+
 app.get('/stat', function (req, res) {
   var id = req.query.id;
 
@@ -294,6 +385,10 @@ app.get('/customData', function (req, res) {
 
 app.get('/alert', function (req, res) {
   res.render('alert');
+});
+
+app.get('/alertByContainer', function (req, res) {
+  res.render('alertByContainer');
 });
 
 io.on('connection', function (socket) {

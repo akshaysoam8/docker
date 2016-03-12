@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/alertByContainer.js"></script>
+    <script src="js/semantic.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="css/alertByContainer.css">
+</head>
+<body>
+  <div id="table">
+  </div>
+</body>
+</html>
