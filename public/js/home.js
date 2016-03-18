@@ -23,6 +23,10 @@ window.onload = function () {
 
       console.log(text);
       console.log(error);
+    },
+    complete : function () {
+      $('#dockerData').show();
+      $('#loader').hide();
     }
   });
 }

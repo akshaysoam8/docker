@@ -12,10 +12,40 @@
 
 body {
   padding: 10px;
+  padding-left: 0px;
+  padding-top: 0px;
 }
 
 .loader {
   position: fixed;
   top: 45%;
   left: 40%;
+}
+
+.nodeList {
+    float: left;
+    height: 100vh;
+    background: #434343;
+    color: white;
+    padding-left: 7px;
+    padding-top: 7px;
+    margin-right: 15px;
+    padding-right : 4px;
+}
+
+.heading {
+  margin-top: 5px;
+  font-size: 40px;
+  font-style: italic;
+  font-family: cursive;
+}
+
+.ip_address_port_number {
+    display: none;
+    margin-top : 4px;
+}
+
+.current_docker_node {
+    border-style: groove;
+    border-width: 1px;
 }

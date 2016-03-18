@@ -53,7 +53,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/dockerData', function (req, res) {
-  var url = 'http://' + nconf.get('anish-pc-college') + '/containers/json';
+  var url = 'http://' + nconf.get('vivek-pc-college') + '/containers/json';
 
   request(url, function (error, response, body) {
     if(error)
@@ -234,7 +234,8 @@ app.get('/nodeList', function (req, res) {
       if(error)
         console.log(error);
 
-      res.send(JSON.stringify(body));
+      else
+        res.send(JSON.stringify(body));
     });
 });
 
@@ -333,7 +334,7 @@ app.get('/customData', function (req, res) {
 
   var data = {};
 
-  var url = 'http://' + nconf.get('anish-pc-college') + '/containers/' + Id + '/stats?stream=false';
+  var url = 'http://' + nconf.get('vivek-pc-college') + '/containers/' + Id + '/stats?stream=false';
 
   request(url, function (error, response, body) {
     var previous_total_usage, previous_system_cpu_usage, number_of_cores;
@@ -392,7 +393,7 @@ app.get('/alertByContainer', function (req, res) {
 });
 
 io.on('connection', function (socket) {
-  var hostname = nconf.get('anish-pc-college');
+  var hostname = nconf.get('vivek-pc-college');
 
   socket.on('get memory usage', function (data) {
 

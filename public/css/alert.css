@@ -28,6 +28,10 @@ table {
   font-weight: normal;;
 }
 
+#addParam {
+  display: none;
+}
+
 select {
   margin-left: 5px;
   margin-right: 5px;

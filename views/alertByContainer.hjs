@@ -11,7 +11,15 @@
     <link rel="stylesheet" type="text/css" href="css/alertByContainer.css">
 </head>
 <body>
-  <div id="table">
+  <div>
+    <div class="nodeList">
+
+    </div>
+    <div>
+      <label class="heading">Container Wise Alerts</label>
+      <div id="table" class="ui celled table">
+      </div>
+    </div>
   </div>
 </body>
 </html>

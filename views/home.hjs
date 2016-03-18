@@ -8,9 +8,11 @@
     <script src="js/semantic.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="css/home.css">
 </head>
 <body>
-    <table id="dockerData" border="1" class="ui celled table">
+    <div id="loader"><img src="images/loader.gif" class="loader"></div>
+    <table id="dockerData" border="1" class="ui celled table" hidden>
       <thead>
         <tr>
           <th>Command</th>
