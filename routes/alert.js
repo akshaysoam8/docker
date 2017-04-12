@@ -125,8 +125,8 @@ module.exports  = function (app, mongoose) {
     // var transporter = nodemailer.createTransport({
     //     service: 'Gmail',
     //     auth: {
-    //         user: 'dockerresourcemanagement@gmail.com',
-    //         pass: 'akshayamitanishvivek'
+    //         user: '',
+    //         pass: ''
     //     }
     // });
     //
